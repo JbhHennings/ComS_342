@@ -7,6 +7,7 @@ import arithlang.AST.NumExp;
 import arithlang.AST.PowerExp;
 import arithlang.AST.Program;
 import arithlang.AST.SubExp;
+import arithlang.AST.AtomExp;
 
 public class Printer {
     public void print(Value v) {
@@ -28,6 +29,11 @@ public class Printer {
             for (AST.Exp exp : e.all())
                 result.append(" ").append(exp.accept(this));
             return result + ")";
+        }
+
+        @Override
+        public String visit(AST.AtomExp e) {
+            return new Value.AbsVal(e.v());
         }
 
         public String visit(AddExp e) {

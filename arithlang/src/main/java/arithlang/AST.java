@@ -26,6 +26,8 @@ public interface AST {
         T visit(AST.Program p);
 
         T visit(AST.PowerExp e);
+
+        T visit(AST.AtomExp e);
     }
 
     abstract class ASTNode {
@@ -78,6 +80,14 @@ public interface AST {
 
         public List<Exp> all() {
             return _rep;
+        }
+    }
+
+    class AtomExp extends CompoundArithExp {
+        public AtomExp(List<Exp> args) { super(args); }
+
+        public Object accept(Visitor visitor) {
+            return visitor.visit(this);
         }
     }
 
