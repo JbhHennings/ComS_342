@@ -12,6 +12,18 @@ grammar ArithLang;
         | s=subexp  { $ast = $s.ast; }
         | m=multexp { $ast = $m.ast; }
         | d=divexp  { $ast = $d.ast; }
+		| p=powerexp { $ast = $p.ast; }
+        ;
+
+powerexp returns [PowerExp ast]
+        locals [ArrayList<Exp> list]
+        @init { $list = new ArrayList<Exp>(); } :
+        '(' 'Power'
+              e=exp { $list.add($e.ast); }     // first operand
+              e=exp { $list.add($e.ast); }     // second operand (required)
+            ( e=exp { $list.add($e.ast); } )*  // any additional operands
+        ')'
+        { $ast = new PowerExp($list); }
         ;
   
  numexp returns [NumExp ast]:

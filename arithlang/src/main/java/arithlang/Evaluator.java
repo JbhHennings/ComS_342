@@ -2,7 +2,16 @@ package arithlang;
 
 import java.util.List;
 
-import static arithlang.AST.*;
+import arithlang.AST.AddExp;
+import arithlang.AST.DivExp;
+import arithlang.AST.Exp;
+import arithlang.AST.MultExp;
+import arithlang.AST.NumExp;
+import arithlang.AST.PowerExp;
+import arithlang.AST.Program;
+import arithlang.AST.SubExp;
+import arithlang.AST.Visitor;
+
 import static arithlang.Value.NumVal;
 
 public class Evaluator implements Visitor<Value> {
@@ -42,6 +51,20 @@ public class Evaluator implements Visitor<Value> {
             NumVal rVal = (NumVal) operands.get(i).accept(this);
             result = result / rVal.v();
         }
+        return new NumVal(result);
+    }
+
+    @Override
+    public Value visit(PowerExp e) {
+        List<Exp> operands = e.all();
+        NumVal first = (NumVal) operands.get(0).accept(this);
+        double result = first.v();
+
+        for (int i = 1; i < operands.size(); i++) {
+            NumVal expVal = (NumVal) operands.get(i).accept(this);
+            result = Math.pow(result, expVal.v());
+        }
+
         return new NumVal(result);
     }
 

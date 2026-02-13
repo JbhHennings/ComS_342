@@ -1,6 +1,12 @@
 package arithlang;
 
-import static arithlang.AST.*;
+import arithlang.AST.AddExp;
+import arithlang.AST.DivExp;
+import arithlang.AST.MultExp;
+import arithlang.AST.NumExp;
+import arithlang.AST.PowerExp;
+import arithlang.AST.Program;
+import arithlang.AST.SubExp;
 
 public class Printer {
     public void print(Value v) {
@@ -15,6 +21,13 @@ public class Printer {
 
         public String visit(NumExp e) {
             return e.toString();
+        }
+
+        public String visit (PowerExp e) {
+            StringBuilder result = new StringBuilder("(Power");
+            for (AST.Exp exp : e.all())
+                result.append(" ").append(exp.accept(this));
+            return result + ")";
         }
 
         public String visit(AddExp e) {
