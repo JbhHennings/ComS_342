@@ -34,11 +34,6 @@ public class Evaluator implements Visitor<Value> {
         return new NumVal(result);
     }
 
-    public Value visit(AST.AtomExp e) {
-        //TODO
-        return null;
-    }
-
     @Override
     public Value visit(NumExp e) {
         return new NumVal(e.v());

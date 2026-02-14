@@ -5,7 +5,7 @@ import abstractlang.AST.Program;
 public class Interpreter {
     public static void main(String[] args) {
         System.out.println("""
-                Type a program to evaluate and press the enter key, e.g. (+ (* 3 100) (/ 84 (- 279 277)))
+                Type a program to evaluate and press the enter key,
                 Press Ctrl + C to exit.
                 """);
         try (Reader reader = new Reader()) {
